@@ -35,6 +35,7 @@ open class Session {
     public let retrier: RequestRetrier?
     public let retryPolicies: [RetryPolicy]
     public let serverTrustManager: ServerTrustManager?
+    public let redirectHandler: RedirectHandler?
 
     public let session: URLSession
     public let eventMonitor: CompositeEventMonitor
@@ -53,6 +54,7 @@ open class Session {
                 retrier: RequestRetrier? = nil,
                 retryPolicies: [RetryPolicy] = [],
                 serverTrustManager: ServerTrustManager? = nil,
+                redirectHandler: RedirectHandler? = nil,
                 eventMonitors: [EventMonitor] = []) {
         precondition(session.delegate === delegate,
                      "SessionManager(session:) initializer must be passed the delegate that has been assigned to the URLSession as the SessionDataProvider.")
@@ -69,6 +71,7 @@ open class Session {
         self.retrier = retrier
         self.retryPolicies = retryPolicies
         self.serverTrustManager = serverTrustManager
+        self.redirectHandler = redirectHandler
         eventMonitor = CompositeEventMonitor(monitors: defaultEventMonitors + eventMonitors)
         delegate.eventMonitor = eventMonitor
         delegate.stateProvider = self
@@ -84,6 +87,7 @@ open class Session {
                             retrier: RequestRetrier? = nil,
                             retryPolicies: [RetryPolicy] = [],
                             serverTrustManager: ServerTrustManager? = nil,
+                            redirectHandler: RedirectHandler? = nil,
                             eventMonitors: [EventMonitor] = []) {
         let delegateQueue = OperationQueue(maxConcurrentOperationCount: 1, underlyingQueue: rootQueue, name: "org.alamofire.sessionManager.sessionDelegateQueue")
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: delegateQueue)
@@ -97,6 +101,7 @@ open class Session {
                   retrier: retrier,
                   retryPolicies: retryPolicies,
                   serverTrustManager: serverTrustManager,
+                  redirectHandler: redirectHandler,
                   eventMonitors: eventMonitors)
     }
 
@@ -619,7 +624,7 @@ extension Session: RequestDelegate {
     }
 }
 
-// MARK: - SessionDelegateDelegate
+// MARK: - SessionStateProvider
 
 extension Session: SessionStateProvider {
     public func request(for task: URLSessionTask) -> Request? {

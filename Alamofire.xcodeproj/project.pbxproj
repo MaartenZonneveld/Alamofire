@@ -178,6 +178,14 @@
 		4C43669C1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43669A1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift */; };
 		4C43669D1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43669A1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift */; };
 		4C43669E1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43669A1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift */; };
+		4C4466E621F2866000AC9703 /* RedirectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466E521F2866000AC9703 /* RedirectHandler.swift */; };
+		4C4466E721F2866000AC9703 /* RedirectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466E521F2866000AC9703 /* RedirectHandler.swift */; };
+		4C4466E821F2866000AC9703 /* RedirectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466E521F2866000AC9703 /* RedirectHandler.swift */; };
+		4C4466E921F2866000AC9703 /* RedirectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466E521F2866000AC9703 /* RedirectHandler.swift */; };
+		4C4466F421F90CA700AC9703 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466F321F90CA700AC9703 /* RequestInterceptor.swift */; };
+		4C4466F521F90CA700AC9703 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466F321F90CA700AC9703 /* RequestInterceptor.swift */; };
+		4C4466F621F90CA700AC9703 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466F321F90CA700AC9703 /* RequestInterceptor.swift */; };
+		4C4466F721F90CA700AC9703 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4466F321F90CA700AC9703 /* RequestInterceptor.swift */; };
 		4C743CF61C22772D00BCB23E /* certDER.cer in Resources */ = {isa = PBXBuildFile; fileRef = B39E2F831C1A72F8002DA1A9 /* certDER.cer */; };
 		4C743CF71C22772D00BCB23E /* certDER.crt in Resources */ = {isa = PBXBuildFile; fileRef = B39E2F841C1A72F8002DA1A9 /* certDER.crt */; };
 		4C743CF81C22772D00BCB23E /* certDER.der in Resources */ = {isa = PBXBuildFile; fileRef = B39E2F851C1A72F8002DA1A9 /* certDER.der */; };
@@ -396,6 +404,8 @@
 		4C3D00531C66A63000D1F709 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		4C3D00571C66A8B900D1F709 /* NetworkReachabilityManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManagerTests.swift; sourceTree = "<group>"; };
 		4C43669A1D7BB93D00C38AAD /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		4C4466E521F2866000AC9703 /* RedirectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectHandler.swift; sourceTree = "<group>"; };
+		4C4466F321F90CA700AC9703 /* RequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		4C811F8C1B51856D00E0F59A /* ServerTrustEvaluation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustEvaluation.swift; sourceTree = "<group>"; };
 		4C812C3A1B535F220017E0BF /* alamofire-root-ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = "alamofire-root-ca.cer"; path = "alamofire.org/alamofire-root-ca.cer"; sourceTree = "<group>"; };
 		4C812C3D1B535F2E0017E0BF /* alamofire-signing-ca1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = "alamofire-signing-ca1.cer"; path = "alamofire.org/alamofire-signing-ca1.cer"; sourceTree = "<group>"; };
@@ -649,6 +659,14 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		4C4466F221F90C7400AC9703 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				4C256A0521EEB69000AD5D87 /* RequestInterceptor.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		4C7C8D201B9D0D7300948136 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -719,7 +737,8 @@
 				4C23EB421B327C5B0090E0BC /* MultipartFormData.swift */,
 				311B198F20B0D3B40036823B /* MultipartUpload.swift */,
 				4C3D00531C66A63000D1F709 /* NetworkReachabilityManager.swift */,
-				4C256A0521EEB69000AD5D87 /* RequestInterceptor.swift */,
+				4C4466E521F2866000AC9703 /* RedirectHandler.swift */,
+				4C4466F321F90CA700AC9703 /* RequestInterceptor.swift */,
 				4CDE2C451AF89FF300BABAE5 /* ResponseSerialization.swift */,
 				4C256A0A21EFE35300AD5D87 /* RetryPolicy.swift */,
 				4C811F8C1B51856D00E0F59A /* ServerTrustEvaluation.swift */,
@@ -818,6 +837,7 @@
 				F8111E3519A95C8B0040E7D1 /* Source */,
 				F8111E3F19A95C8B0040E7D1 /* Tests */,
 				F8111E3419A95C8B0040E7D1 /* Products */,
+				4C4466F221F90C7400AC9703 /* Recovered References */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -1299,6 +1319,7 @@
 			files = (
 				4CF6270C1BA7CBF60011A099 /* Result.swift in Sources */,
 				4CF627081BA7CBF60011A099 /* AFError.swift in Sources */,
+				4C4466F621F90CA700AC9703 /* RequestInterceptor.swift in Sources */,
 				3191B5771F5F53A6003960A8 /* Protector.swift in Sources */,
 				3199179A209CDA7F00103A19 /* Response.swift in Sources */,
 				31D83FD020D5C29300D93E47 /* URLConvertible+URLRequestConvertible.swift in Sources */,
@@ -1318,6 +1339,7 @@
 				4C256A1321F11DA700AD5D87 /* ConnectionLostRetryPolicy.swift in Sources */,
 				4C3D00561C66A63000D1F709 /* NetworkReachabilityManager.swift in Sources */,
 				311B199220B0E3480036823B /* MultipartUpload.swift in Sources */,
+				4C4466E821F2866000AC9703 /* RedirectHandler.swift in Sources */,
 				319917A2209CDA7F00103A19 /* SessionStateProvider.swift in Sources */,
 				4CF6270A1BA7CBF60011A099 /* ParameterEncoding.swift in Sources */,
 				4C256A1C21F1449C00AD5D87 /* ExponentialBackoffRetryPolicy.swift in Sources */,
@@ -1368,6 +1390,7 @@
 			files = (
 				4CE272501AF88FB500F1D59A /* ParameterEncoding.swift in Sources */,
 				3191B5761F5F53A6003960A8 /* Protector.swift in Sources */,
+				4C4466F521F90CA700AC9703 /* RequestInterceptor.swift in Sources */,
 				4CDE2C471AF89FF300BABAE5 /* ResponseSerialization.swift in Sources */,
 				31991799209CDA7F00103A19 /* Response.swift in Sources */,
 				31D83FCF20D5C29300D93E47 /* URLConvertible+URLRequestConvertible.swift in Sources */,
@@ -1387,6 +1410,7 @@
 				4C256A1221F11DA700AD5D87 /* ConnectionLostRetryPolicy.swift in Sources */,
 				4C811F8E1B51856D00E0F59A /* ServerTrustEvaluation.swift in Sources */,
 				311B199120B0E3470036823B /* MultipartUpload.swift in Sources */,
+				4C4466E721F2866000AC9703 /* RedirectHandler.swift in Sources */,
 				319917A1209CDA7F00103A19 /* SessionStateProvider.swift in Sources */,
 				4C3D00551C66A63000D1F709 /* NetworkReachabilityManager.swift in Sources */,
 				4C256A1B21F1449C00AD5D87 /* ExponentialBackoffRetryPolicy.swift in Sources */,
@@ -1404,6 +1428,7 @@
 			files = (
 				4CEE82AD1C6813CF00E9C9F0 /* NetworkReachabilityManager.swift in Sources */,
 				E4202FD01B667AA100C997FB /* ParameterEncoding.swift in Sources */,
+				4C4466F721F90CA700AC9703 /* RequestInterceptor.swift in Sources */,
 				3191B5781F5F53A6003960A8 /* Protector.swift in Sources */,
 				3199179B209CDA7F00103A19 /* Response.swift in Sources */,
 				31D83FD120D5C29300D93E47 /* URLConvertible+URLRequestConvertible.swift in Sources */,
@@ -1423,6 +1448,7 @@
 				4C256A1421F11DA700AD5D87 /* ConnectionLostRetryPolicy.swift in Sources */,
 				E4202FD41B667AA100C997FB /* Alamofire.swift in Sources */,
 				311B199320B0E3480036823B /* MultipartUpload.swift in Sources */,
+				4C4466E921F2866000AC9703 /* RedirectHandler.swift in Sources */,
 				319917A3209CDA7F00103A19 /* SessionStateProvider.swift in Sources */,
 				E4202FD51B667AA100C997FB /* MultipartFormData.swift in Sources */,
 				4C256A1D21F1449C00AD5D87 /* ExponentialBackoffRetryPolicy.swift in Sources */,
@@ -1440,6 +1466,7 @@
 			files = (
 				4CE2724F1AF88FB500F1D59A /* ParameterEncoding.swift in Sources */,
 				3191B5751F5F53A6003960A8 /* Protector.swift in Sources */,
+				4C4466F421F90CA700AC9703 /* RequestInterceptor.swift in Sources */,
 				4CDE2C461AF89FF300BABAE5 /* ResponseSerialization.swift in Sources */,
 				31991798209CDA7F00103A19 /* Response.swift in Sources */,
 				31D83FCE20D5C29300D93E47 /* URLConvertible+URLRequestConvertible.swift in Sources */,
@@ -1459,6 +1486,7 @@
 				4C256A1121F11DA700AD5D87 /* ConnectionLostRetryPolicy.swift in Sources */,
 				4C3D00541C66A63000D1F709 /* NetworkReachabilityManager.swift in Sources */,
 				311B199020B0D3B40036823B /* MultipartUpload.swift in Sources */,
+				4C4466E621F2866000AC9703 /* RedirectHandler.swift in Sources */,
 				319917A0209CDA7F00103A19 /* SessionStateProvider.swift in Sources */,
 				4CDE2C431AF89F0900BABAE5 /* Validation.swift in Sources */,
 				4C256A1A21F1449C00AD5D87 /* ExponentialBackoffRetryPolicy.swift in Sources */,
