@@ -44,3 +44,36 @@ public protocol RedirectHandler {
               for response: HTTPURLResponse,
               completion: @escaping (URLRequest?) -> Void)
 }
+
+// MARK: -
+
+public struct Redirector {
+    public enum Behavior {
+        case follow
+        case doNotFollow
+        case modify((URLSessionTask, URLRequest, HTTPURLResponse) -> URLRequest?)
+    }
+
+    public let behavior: Behavior
+
+    public init(behavior: Behavior) {
+        self.behavior = behavior
+    }
+}
+
+extension Redirector: RedirectHandler {
+    public func task(_ task: URLSessionTask,
+              willBeRedirectedTo request: URLRequest,
+              for response: HTTPURLResponse,
+              completion: @escaping (URLRequest?) -> Void) {
+        switch behavior {
+        case .follow:
+            completion(request)
+        case .doNotFollow:
+            completion(nil)
+        case .modify(let closure):
+            let request = closure(task, request, response)
+            completion(request)
+        }
+    }
+}
