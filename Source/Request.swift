@@ -662,10 +662,15 @@ public protocol RequestDelegate: AnyObject {
 // MARK: DataRequest
 
 open class DataRequest: Request {
-    public let convertible: URLRequestConvertible
+    private struct MutableData {
+        var data: Data?
+        var dataStream: ((Data) -> Void)?
+    }
 
-    private var protectedData: Protector<Data?> = Protector(nil)
-    public var data: Data? { return protectedData.directValue }
+    public let convertible: URLRequestConvertible
+    public var data: Data? { return protectedMutableData.directValue.data }
+
+    private var protectedMutableData: Protector<MutableData> = Protector(MutableData())
 
     init(id: UUID = UUID(),
          convertible: URLRequestConvertible,
@@ -689,14 +694,20 @@ open class DataRequest: Request {
     override func reset() {
         super.reset()
 
-        protectedData.directValue = nil
+        protectedMutableData.directValue.data = nil
     }
 
     func didReceive(data: Data) {
-        if self.data == nil {
-            protectedData.directValue = data
+        if let dataStream = protectedMutableData.directValue.dataStream {
+            dataStream(data)
         } else {
-            protectedData.append(data)
+            protectedMutableData.write { mutableData in
+                if mutableData.data == nil {
+                    mutableData.data = data
+                } else {
+                    mutableData.data?.append(data)
+                }
+            }
         }
 
         updateDownloadProgress()
@@ -742,6 +753,21 @@ open class DataRequest: Request {
 
         protectedValidators.append(validator)
 
+        return self
+    }
+
+    /// Sets a closure to be called periodically during the lifecycle of the request as data is read from the server.
+    ///
+    /// This closure returns the bytes most recently received from the server, not including data from previous calls.
+    /// If this closure is set, data will only be available within this closure, and will not be saved elsewhere. It is
+    /// also important to note that the server data in any `Response` object will be `nil`.
+    ///
+    /// - parameter closure: The code to be executed periodically during the lifecycle of the request.
+    ///
+    /// - returns: The request.
+    @discardableResult
+    open func stream(closure: ((Data) -> Void)? = nil) -> Self {
+        protectedMutableData.write { $0.dataStream = closure }
         return self
     }
 }
