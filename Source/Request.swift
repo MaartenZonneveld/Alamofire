@@ -63,6 +63,8 @@ open class Request {
     public let serializationQueue: DispatchQueue
     /// `EventMonitor` used for event callbacks.
     public let eventMonitor: EventMonitor?
+    /// The `Request`'s interceptor.
+    public let interceptor: RequestInterceptor?
     /// The `Request`'s delegate.
     public weak var delegate: RequestDelegate?
 
@@ -198,7 +200,6 @@ open class Request {
         set { protectedMutableState.write { $0.error = newValue } }
     }
 
-
     /// Default initializer for the `Request` superclass.
     ///
     /// - Parameters:
@@ -207,11 +208,13 @@ open class Request {
     ///   - serializationQueue: `DispatchQueue` on which all serialization work is performed. Targets the
     ///                         `underlyingQueue` when created by a `SessionManager`.
     ///   - eventMonitor:       `EventMonitor` used for event callbacks from internal `Request` actions.
+    ///   - interceptor:        `RequestInterceptor` used throughout the request lifecycle.
     ///   - delegate:           `RequestDelegate` that provides an interface to actions not performed by the `Request`.
     public init(id: UUID = UUID(),
                 underlyingQueue: DispatchQueue,
                 serializationQueue: DispatchQueue,
                 eventMonitor: EventMonitor?,
+                interceptor: RequestInterceptor?,
                 delegate: RequestDelegate) {
         self.id = id
         self.underlyingQueue = underlyingQueue
@@ -221,6 +224,7 @@ open class Request {
                                        name: "org.alamofire.request-\(id)",
                                        startSuspended: true)
         self.eventMonitor = eventMonitor
+        self.interceptor = interceptor
         self.delegate = delegate
     }
 
@@ -333,7 +337,7 @@ open class Request {
 
     /// Called to trigger retry or finish this `Request`.
     func retryOrFinish(error: Error?) {
-        if let error = error, delegate?.willRetryRequest(self) == true {
+        if let error = error, delegate?.willAttemptToRetryRequest(self) == true {
             delegate?.retryRequest(self, ifNecessaryWithError: error)
             return
         } else {
@@ -342,7 +346,9 @@ open class Request {
     }
 
     /// Finishes this `Request` and starts the response serializers.
-    func finish() {
+    func finish(error: Error? = nil) {
+        if let error = error { self.error = error }
+
         // Start response handlers
         internalQueue.isSuspended = false
 
@@ -601,7 +607,7 @@ extension Request: CustomDebugStringConvertible {
 public protocol RequestDelegate: AnyObject {
     var sessionConfiguration: URLSessionConfiguration { get }
 
-    func willRetryRequest(_ request: Request) -> Bool
+    func willAttemptToRetryRequest(_ request: Request) -> Bool
     func retryRequest(_ request: Request, ifNecessaryWithError error: Error)
 
     func cancelRequest(_ request: Request)
@@ -625,6 +631,7 @@ open class DataRequest: Request {
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
+         interceptor: RequestInterceptor?,
          delegate: RequestDelegate) {
         self.convertible = convertible
 
@@ -632,6 +639,7 @@ open class DataRequest: Request {
                    underlyingQueue: underlyingQueue,
                    serializationQueue: serializationQueue,
                    eventMonitor: eventMonitor,
+                   interceptor: interceptor,
                    delegate: delegate)
     }
 
@@ -780,6 +788,7 @@ open class DownloadRequest: Request {
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
+         interceptor: RequestInterceptor?,
          delegate: RequestDelegate,
          destination: Destination? = nil) {
         self.downloadable = downloadable
@@ -789,6 +798,7 @@ open class DownloadRequest: Request {
                    underlyingQueue: underlyingQueue,
                    serializationQueue: serializationQueue,
                    eventMonitor: eventMonitor,
+                   interceptor: interceptor,
                    delegate: delegate)
     }
 
@@ -885,6 +895,7 @@ open class UploadRequest: DataRequest {
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
+         interceptor: RequestInterceptor?,
          delegate: RequestDelegate) {
         self.upload = convertible
 
@@ -893,6 +904,7 @@ open class UploadRequest: DataRequest {
                    underlyingQueue: underlyingQueue,
                    serializationQueue: serializationQueue,
                    eventMonitor: eventMonitor,
+                   interceptor: interceptor,
                    delegate: delegate)
 
         // Automatically remove temporary upload files (e.g. multipart form data)
@@ -959,4 +971,3 @@ extension UploadRequest.Uploadable: UploadableConvertible {
 }
 
 public protocol UploadConvertible: UploadableConvertible & URLRequestConvertible { }
-
